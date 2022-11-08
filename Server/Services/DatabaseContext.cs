@@ -11,7 +11,7 @@ public sealed class DatabaseContext : DbContext
 
     public DatabaseContext (IConfiguration configuration)
     {
-        _connectionString = configuration["ConnectionStrings:DefaultConnection"];
+        _connectionString = configuration["ConnectionStrings:CollegeConnection"];
 
         Database.EnsureCreated();
     }

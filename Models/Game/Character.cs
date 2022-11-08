@@ -6,7 +6,14 @@ namespace Models.Game;
 [Table(nameof(Character))]
 public class Character : Model
 {
+    public Character(int creatorID)
+    {
+        CreatorID = creatorID;
+    }
+
     private const int DEFAULT_MAX_HP = 10;
+
+    public int CreatorID { get; set; }
 
     public int CurrentX { get; set; }
 

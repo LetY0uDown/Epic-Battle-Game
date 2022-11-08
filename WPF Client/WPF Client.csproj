@@ -9,12 +9,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Core\ViewModels\" />
-    <Folder Include="Views\" />
+    <PackageReference Include="Fody" Version="6.6.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.11" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
+    <ProjectReference Include="..\WPF Client Library\WPF Client Library.csproj" />
   </ItemGroup>
 
 </Project>

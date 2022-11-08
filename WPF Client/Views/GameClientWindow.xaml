@@ -1,0 +1,19 @@
+﻿<Window x:Class="WPF_Client.Views.GameClientWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:WPF_Client.Core.ViewModels"
+        xmlns:ui="clr-namespace:WPF_Client.UITools"
+        mc:Ignorable="d"
+        Title="Epic Battle Game" Height="650" Width="1080"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <ui:PlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        
+    </Grid>
+</Window>

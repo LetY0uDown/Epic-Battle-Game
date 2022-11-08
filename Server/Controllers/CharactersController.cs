@@ -10,9 +10,20 @@ public sealed class CharactersController : ControllerBase
 {
     private readonly DatabaseContext _dbContext;
 
-    public CharactersController (DatabaseContext dbContext,)
+    public CharactersController (DatabaseContext dbContext)
     {
         _dbContext = dbContext;
+    }
+
+    [HttpGet("/User/{id:int}")]
+    public async Task<ActionResult<List<Character>>> GetCharactersByUser (int id)
+    {
+        var characters = _dbContext.Characters.Where(c => c.CreatorID == id);
+
+        if (characters.Count() == 0)
+            return NotFound();
+
+        return await characters.ToListAsync();
     }
 
     [HttpGet("{id:int}")]
