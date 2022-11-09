@@ -77,7 +77,7 @@
                                                    Converter={StaticResource PlaceholderVisibilityConverter}}" />
             </Grid>
 
-            <Button Grid.Row="1" Content="Сохранить" />
+            <Button Grid.Row="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
         </Grid>
     </Grid>
 </Window>

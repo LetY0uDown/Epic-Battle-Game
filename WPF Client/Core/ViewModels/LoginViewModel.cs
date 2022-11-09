@@ -19,7 +19,7 @@ internal sealed class LoginViewModel : ViewModel
 
             if (returnedUser is not null) {
                 App.CurrentUser = returnedUser;
-                App.SwitchMainWindow(new GameClientWindow());
+                App.SwitchMainWindow<GameClientWindow>();
             }
 
         }, b => !string.IsNullOrWhiteSpace(Login) 

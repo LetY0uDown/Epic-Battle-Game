@@ -12,4 +12,9 @@ public class Weapon : Item
     public int MinDamage { get; init; }
 
     public int Damage => Random.Shared.Next(MinDamage, MaxDamage + 1);
+
+    public override string ToString()
+    {
+        return $"{Title} - {(MinDamage + MaxDamage) / 2} ср. урон";
+    }
 }

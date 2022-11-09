@@ -9,11 +9,119 @@
         Title="Epic Battle Game" Height="650" Width="1080"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 
+    <Window.DataContext>
+        <viewmodels:GameViewModel />
+    </Window.DataContext>
+    
     <Window.Resources>
         <ui:PlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
     </Window.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".3*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height=".3*"/>
+        </Grid.RowDefinitions>
         
+        <!-- Actions List -->
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden"
+                      Margin="10 10 0 10">
+            <ItemsControl />
+        </ScrollViewer>
+        
+        <!-- Character Info -->
+        <Grid Background="LightGray">
+            <StackPanel>
+                <TextBox IsReadOnly="True" Text="{Binding StringFormat=Здоровье: {0}, Path=CurrentCharacter.CurrentHP}"
+                         FontSize="24" HorizontalContentAlignment="Center"
+                         Background="Transparent"/>
+
+                <TextBox IsReadOnly="True" Text="{Binding StringFormat=Монет: {0}., Path=CurrentCharacter.Money}"
+                         FontSize="24" HorizontalContentAlignment="Center"
+                         TextWrapping="Wrap"
+                         Background="Transparent"/>
+
+                <TextBox IsReadOnly="True" Text="{Binding StringFormat=.{0}., Path=CurrentCharacter.Weapon}"
+                         FontSize="24" HorizontalContentAlignment="Center"
+                         TextWrapping="Wrap"
+                         Background="Transparent"/>
+
+                <TextBox IsReadOnly="True" Text="{Binding StringFormat=.{0}., Path=CurrentCharacter.Armor}"
+                         FontSize="24" HorizontalContentAlignment="Center"
+                         TextWrapping="Wrap"
+                         Background="Transparent"/>
+
+                <TextBlock Text="А тут наверное будет инвентарь"
+                           FontSize="24" HorizontalAlignment="Center" TextWrapping="Wrap"/>
+            </StackPanel>            
+        </Grid>
+        
+        <!-- Game Control Buttons -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+
+            <!-- No Battle Control Panel -->
+            <Grid Visibility="Visible">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                
+                <Button Grid.Column="0" Content="Начать битву" Margin="5"
+                        IsEnabled="False"/>
+                <Button Grid.Column="1" Content="Осмотреть остальных" Margin="5"
+                        IsEnabled="False"/>
+                <Button Grid.Column="2" Content="Подобрать лут" Margin="5"
+                        Command="{Binding PickLootCommand}"/>
+                <Button Grid.Column="3" Content="Идти дальше" Margin="5"
+                        Command="{Binding MoveOnCommand}"/>
+            </Grid>
+            
+            <!-- Battle Control Panel -->
+            <Grid Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="Аттаковать" Margin="5"/>
+                <Button Grid.Column="1" Content="Защититься" Margin="5"/>
+                <Button Grid.Column="2" Content="Лечиться" Margin="5"/>
+                <Button Grid.Column="3" Content="Swashbuckle" Margin="5"/>
+                <Button Grid.Column="4" Content="ЯДЕРНАЯ БОМБА" Margin="5"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>
+    
+<!--
+    Actions in room:
+    
+        Always:
+            1. Leave Room
+    
+        If there's no battle in room:
+            2. Pick Loot
+    
+        If there are players:
+            3. Look at players
+            4. Start/Join Battle
+    
+        In Battle:
+            6. Attack
+            7. Defend
+            8. Heal
+            9. Swashbuckle
+    
+        If character have 1000 money:
+            10. Nuke
+-->

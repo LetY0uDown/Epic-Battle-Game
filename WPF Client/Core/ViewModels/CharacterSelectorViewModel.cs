@@ -19,22 +19,24 @@ internal sealed class CharacterSelectorViewModel : ViewModel
 
             App.CurrentUser!.CurrentCharacter = await APIClient.PostAsync("Characters", newChar);
 
-            App.SwitchMainWindow(new CharacterEditingWindow());
+            App.SwitchMainWindow<CharacterEditingWindow>();
         });
 
         EditCharacterCommand = new(o =>
         {
             App.CurrentUser!.CurrentCharacter = SelectedCharacter;
 
-            App.SwitchMainWindow(new CharacterEditingWindow());
+            App.SwitchMainWindow<CharacterEditingWindow>();
 
         }, b => SelectedCharacter is not null);
 
-        PlayCommand = new(o =>
+        PlayCommand = new(async o =>
         {
             App.CurrentUser!.CurrentCharacter = SelectedCharacter;
 
-            App.SwitchMainWindow(new GameClientWindow());
+            App.CurrentUser = await APIClient.PutAsync("Users", App.CurrentUser);
+
+            App.SwitchMainWindow<GameClientWindow>();
 
         }, b => SelectedCharacter is not null);
     }

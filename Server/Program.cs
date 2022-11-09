@@ -11,6 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<RoomService>();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment()) {
@@ -22,6 +24,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapHub<GameHub>("/Game");
+app.MapHub<GameHub>("Game");
 
 app.Run();
