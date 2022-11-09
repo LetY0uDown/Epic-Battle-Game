@@ -32,7 +32,7 @@ internal static class Config
         File.Create(CONFIG_PATH).Close();
 
         _config = new() {
-            ["host"] = "http://localhost:5203"
+            ["host"] = "http://localhost:5203/"
         };
 
         var json = JsonSerializer.Serialize(_config);
