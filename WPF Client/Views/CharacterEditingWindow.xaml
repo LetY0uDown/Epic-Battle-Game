@@ -1,0 +1,83 @@
+﻿<Window x:Class="WPF_Client.Views.CharacterEditingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodels="clr-namespace:WPF_Client.Core.ViewModels"
+        xmlns:ui="clr-namespace:WPF_Client.UITools"
+        mc:Ignorable="d"
+        Title="Epic Battle Game" Height="650" Width="1080"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <Window.DataContext>
+        <viewmodels:CharacterEditingViewModel />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <ui:PlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width=".45*"/>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Border BorderBrush="Black" BorderThickness="4"
+                CornerRadius="10" Margin="5">
+            <Viewbox Margin="5">
+                <TextBlock Text="тут могла быть &#x0a; ваша реклама" />
+            </Viewbox>
+        </Border>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Grid Margin="20">
+                <TextBox Padding="5" x:Name="nameTB" VerticalContentAlignment="Center" 
+                         FontSize="32" Text="{Binding Character.Name, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" />
+                <TextBlock Margin="5" Text="Имя персонажа" Foreground="Gray" IsHitTestVisible="False"
+                           FontSize="32" VerticalAlignment="Center"
+                           Visibility="{Binding ElementName=nameTB, Path=Text,
+                                                Converter={StaticResource PlaceholderVisibilityConverter}}" />
+            </Grid>
+
+            <TextBox Grid.Row="1" IsReadOnly="True" Foreground="Gray"
+                     VerticalContentAlignment="Center" Padding="5" Margin="20"
+                     FontSize="32" Text="{Binding StringFormat=Количество монет - {0}, Path=Character.Money}"/>
+
+            <TextBox Grid.Row="2" IsReadOnly="True" Foreground="Gray"
+                     VerticalContentAlignment="Center" Padding="5" Margin="20"
+                     FontSize="32" Text="{Binding StringFormat=Максимальное количество хп - {0}, Path=Character.MaxHP}"/>
+
+        </Grid>
+
+        <Grid Margin="20" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height=".3*"/>
+            </Grid.RowDefinitions>
+
+            <Grid>
+                <TextBox FontSize="32" x:Name="descTB" MaxLength="50"
+                     TextWrapping="Wrap" Padding="5"
+                     Text="{Binding Character.Description, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <TextBlock Margin="5" Text="Имя персонажа" Foreground="Gray" IsHitTestVisible="False" 
+                       FontSize="32"  Visibility="{Binding ElementName=descTB, Path=Text,
+                                                   Converter={StaticResource PlaceholderVisibilityConverter}}" />
+            </Grid>
+
+            <Button Grid.Row="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

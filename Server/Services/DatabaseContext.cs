@@ -11,7 +11,7 @@ public sealed class DatabaseContext : DbContext
 
     public DatabaseContext (IConfiguration configuration)
     {
-        _connectionString = configuration["ConnectionStrings:DefaultConnection"];
+        _connectionString = configuration["ConnectionStrings:CollegeConnection"];
 
         Database.EnsureCreated();
     }
@@ -98,6 +98,11 @@ public sealed class DatabaseContext : DbContext
                Title = "Железная броня",
                Description = "Добротный металлическйи доспех, который хорошо защитит вас от серъёзных ударов. Но удобным его не назвать..",
                Resistance = 16
+           },
+           new Armor {
+               Title = "Шапочка из фольги",
+               Description = "Небольшая, удобная шапочка, свёрнутая из листа фольги. Хорошо защищает от психического и прочего урона.",
+               Resistance = 100
            }
        );
     }

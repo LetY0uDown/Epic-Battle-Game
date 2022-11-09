@@ -17,5 +17,5 @@ public class User : Model
 
     public string Password { get; set; }
 
-    public Character? Character { get; set; }
+    public Character? CurrentCharacter { get; set; }
 }

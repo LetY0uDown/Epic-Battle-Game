@@ -6,4 +6,9 @@ namespace Models.Game;
 public class Armor : Item
 {
     public int Resistance { get; set; }
+
+    public override string ToString()
+    {
+        return $"{Title} - {Resistance} ед. защиты";
+    }
 }

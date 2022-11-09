@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Models.Game;
 using Server.Services;
+using System.Text;
 
 namespace Server.Controllers;
 
@@ -19,13 +20,13 @@ public class GameHub : Hub
 
     public async void EnterRoom(Room currentRoom, Character character, int x, int y)
     {
-        _roomService.RemoveCharacterFromRoom(character, currentRoom);
+        RemovePlayerFromRoom(character, currentRoom);
 
         await Clients.OthersInGroup(currentRoom.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} вышел в одну из дверей, и был таков.");
 
         var newRoom = await _roomService.GetRoom(x, y);
 
-        _roomService.AddCharacterToRoom(character, newRoom);
+        AddPlayerToRoom(character, newRoom);
 
         var roomDesc = _roomService.ConstructRoomDescription(newRoom, character.Name!);
 
@@ -45,9 +46,14 @@ public class GameHub : Hub
 
         await Clients.Caller.SendAsync(RECIEVE_MSG, roomDesc);
 
-        await Clients.OthersInGroup(room.ToString()).SendAsync(RECIEVE_MSG, $"Неожиданно, прямо посреди комнаты появилась какая-то непонятная фигура, " +
-                                                                            $"на которой надет {character.Armor!.Title}, а рядом лежит {character.Weapon!.Title}. " +
-                                                                            $"Что-то подсказывает вам что эту фигуру зовут {character.Name}");
+        var sb = new StringBuilder("Неожиданно, прямо посреди комнаты появилась какая - то непонятная фигура, на которой надет ").Append(character.Armor!.Title)
+                 .Append(", а рядом лежит ").Append(character.Weapon!.Title).Append(". ");
+
+        await Clients.Caller.SendAsync(room.ToString(), RECIEVE_MSG, sb.ToString());
+
+        sb.Append("Что-то подсказывает вам что эту фигуру зовут ").Append(character.Name);
+
+        await Clients.OthersInGroup(room.ToString()).SendAsync(RECIEVE_MSG, sb.ToString());
     }
 
     public async void PickUpLoot (Character character, Room room)
@@ -69,7 +75,7 @@ public class GameHub : Hub
 
         await Clients.Caller.SendAsync("FoundMoney", moneyFound);
 
-        await Clients.OthersInGroup(room.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} только что подобрал с пола {moneyFound} монет");
+        await Clients.Group(room.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} только что подобрал с пола {moneyFound} монет");
     }
 
     private async void RemovePlayerFromRoom (Character character, Room room)

@@ -43,7 +43,7 @@ public class RoomService
         var sb = new StringBuilder("Вы вошли в очередную комнату. ").Append(room.Description);
 
         if (!IsCharacterAlone(room)) {
-            sb.Append(" Помимо вас в этой комнате находится ").Append(_charactersInRooms[room].Count).Append(" человек. ");
+            sb.Append(" Помимо вас в этой комнате находится ").Append(_charactersInRooms[room].Count - 1).Append(" человек. ");
 
             sb.Append("Голос в голове твердит вам их имена - ");
 
