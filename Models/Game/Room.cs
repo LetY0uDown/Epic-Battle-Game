@@ -22,6 +22,16 @@ public class Room : Model
 
     public Status CurrentStatus { get; set; }
 
+    public int PickMoney ()
+    {
+        var moneyFound = MoneyIn;
+
+        if (MoneyIn > 3)
+            moneyFound = (int)(MoneyIn * Random.Shared.NextSingle());
+
+        return moneyFound;
+    }
+
     public override string ToString ()
     {
         return $"Room[{X}-{Y}]";

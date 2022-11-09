@@ -11,17 +11,17 @@ public sealed class DatabaseContext : DbContext
 
     public DatabaseContext (IConfiguration configuration)
     {
-        _connectionString = configuration["ConnectionStrings:CollegeConnection"];
+        _connectionString = configuration["ConnectionStrings:HomeConnection"];
 
         Database.EnsureCreated();
     }
 
-    public DbSet<User> Users { get; set; }
-    public DbSet<Character> Characters { get; set; }
-    public DbSet<Item> Items { get; set; }
-    public DbSet<Armor> Armor { get; set; }
-    public DbSet<Weapon> Weapons { get; set; }
-    public DbSet<Room> Rooms { get; set; }
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Character> Characters => Set<Character>();
+    public DbSet<Item> Items => Set<Item>();
+    public DbSet<Armor> Armor => Set<Armor>();
+    public DbSet<Weapon> Weapons => Set<Weapon>();
+    public DbSet<Room> Rooms => Set<Room>();
 
     protected override void OnConfiguring (DbContextOptionsBuilder optionsBuilder)
     {
@@ -50,7 +50,7 @@ public sealed class DatabaseContext : DbContext
             },
             new Weapon {
                 Title = "Камень",
-                Description = "Увесистый серо-красный булыжник, отколовшийся от какой-то скалы. Вполне может сломать противнику не одну кость",
+                Description = "Увесистый серо-красный кусок булыжника, отколовшийся от какой-то скалы. Вполне может сломать противнику не одну кость",
                 AttackBonus = 2,
                 MinDamage = 2,
                 MaxDamage = 6
@@ -63,7 +63,7 @@ public sealed class DatabaseContext : DbContext
                 MaxDamage = 8
             },
             new Weapon {
-                Title = "Короткий меч",
+                Title = "Меч",
                 Description = "Небольшой стальной меч прямиком из рыцарских романов. Поможет вам сделать из противника колбасу. Если повезёт",
                 AttackBonus = 5,
                 MinDamage = 6,

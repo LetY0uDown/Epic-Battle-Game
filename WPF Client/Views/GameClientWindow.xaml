@@ -65,7 +65,7 @@
         <Grid Grid.Row="1" Grid.ColumnSpan="2">
 
             <!-- No Battle Control Panel -->
-            <Grid Visibility="Visible">
+            <Grid Visibility="{Binding NonBattleControlsVisibility}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -84,8 +84,9 @@
             </Grid>
             
             <!-- Battle Control Panel -->
-            <Grid Visibility="Collapsed">
+            <Grid Visibility="{Binding BattleControlsVisibility}">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
                     <ColumnDefinition />
@@ -93,11 +94,14 @@
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="Аттаковать" Margin="5"/>
+                <Button Grid.Column="0" Content="Аттаковать" Margin="5"
+                        />
                 <Button Grid.Column="1" Content="Защититься" Margin="5"/>
                 <Button Grid.Column="2" Content="Лечиться" Margin="5"/>
                 <Button Grid.Column="3" Content="Swashbuckle" Margin="5"/>
                 <Button Grid.Column="4" Content="ЯДЕРНАЯ БОМБА" Margin="5"/>
+                <Button Grid.Column="5" Content="Уйти" Margin="5"
+                        Command="{Binding MoveOnCommand}"/>
             </Grid>
         </Grid>
     </Grid>

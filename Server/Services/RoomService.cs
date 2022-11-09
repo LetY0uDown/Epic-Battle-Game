@@ -14,7 +14,7 @@ public class RoomService
     public RoomService (DatabaseContext databaseContext)
     {
         _dbContext = databaseContext;
-    }
+    }    
 
     public async Task<Room> GetRoom (int x, int y)
     {

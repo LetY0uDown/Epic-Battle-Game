@@ -11,11 +11,18 @@ public class GameHub : Hub
 
     private readonly DatabaseContext _dbContext;
     private readonly RoomService _roomService;
+    private readonly BattleService _battleService;
 
-    public GameHub (DatabaseContext dbContext, RoomService roomService)
+    public GameHub (DatabaseContext dbContext, RoomService roomService, BattleService battleService)
     {
         _dbContext = dbContext;
         _roomService = roomService;
+        _battleService = battleService;
+    }
+
+    public async void MakeAction (Character sender, BattleActionType action)
+    {
+
     }
 
     public async void EnterRoom(Room currentRoom, Character character, int x, int y)
@@ -44,7 +51,7 @@ public class GameHub : Hub
 
         var roomDesc = _roomService.ConstructRoomDescription(room, character.Name!);
 
-        await Clients.Caller.SendAsync(RECIEVE_MSG, roomDesc);
+        await Clients.Caller.SendAsync("EnterRoom", roomDesc, room);
 
         var sb = new StringBuilder("Неожиданно, прямо посреди комнаты появилась какая - то непонятная фигура, на которой надет ").Append(character.Armor!.Title)
                  .Append(", а рядом лежит ").Append(character.Weapon!.Title).Append(". ");
@@ -58,10 +65,7 @@ public class GameHub : Hub
 
     public async void PickUpLoot (Character character, Room room)
     {
-        var moneyFound = room.MoneyIn;
-
-        if (room.MoneyIn > 3)
-            moneyFound = (int)(room.MoneyIn * Random.Shared.NextSingle());
+        var moneyFound = room.PickMoney();
 
         try {
             room.MoneyIn -= moneyFound;
@@ -75,7 +79,7 @@ public class GameHub : Hub
 
         await Clients.Caller.SendAsync("FoundMoney", moneyFound);
 
-        await Clients.Group(room.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} только что подобрал с пола {moneyFound} монет");
+        await Clients.Group(room.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} только что нагнулся, и вытащил из какой-то щели несколько монет");
     }
 
     private async void RemovePlayerFromRoom (Character character, Room room)

@@ -10,6 +10,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<DatabaseContext>();
 builder.Services.AddScoped<RoomService>();
+builder.Services.AddScoped<BattleService>();
 
 builder.Services.AddSignalR();
 
