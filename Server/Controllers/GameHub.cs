@@ -20,7 +20,7 @@ public class GameHub : Hub
         _battleService = battleService;
     }
 
-    public async void MakeAction (Character sender, BattleActionType action)
+    public async void MakeAction (Character sender, BattleAction.Type action)
     {
 
     }

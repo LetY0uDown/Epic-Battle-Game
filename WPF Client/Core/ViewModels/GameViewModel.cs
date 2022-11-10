@@ -35,8 +35,8 @@ internal sealed class GameViewModel : ViewModel
         };
     }
 
-    public Visibility BattleControlsVisibility { get; private set; }
-    public Visibility NonBattleControlsVisibility { get; private set; } = Visibility.Collapsed;
+    public Visibility BattleControlsVisibility { get; private set; } = Visibility.Collapsed;
+    public Visibility NonBattleControlsVisibility { get; private set; }
 
     public ObservableCollection<string> Actions { get; } = new();
 
@@ -47,12 +47,12 @@ internal sealed class GameViewModel : ViewModel
     public Command MoveOnCommand { get; private set; }
     #endregion
     
-    public Character CurrentCharacter { get; }    
+    public Character CurrentCharacter { get; }
 
     private void InitializeCommands ()
     {
         MakeAction = new(async o => {
-            var action = (BattleActionType)int.Parse(o.ToString()!);
+            var action = (BattleAction.Type)int.Parse(o.ToString()!);
 
             // Add target selection
             await _hub!.SendAsync("MakeTurn", CurrentCharacter, action);

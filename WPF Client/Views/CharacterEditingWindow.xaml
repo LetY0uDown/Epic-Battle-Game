@@ -72,7 +72,7 @@
                      TextWrapping="Wrap" Padding="5"
                      Text="{Binding Character.Description, UpdateSourceTrigger=PropertyChanged}"/>
 
-                <TextBlock Margin="5" Text="Имя персонажа" Foreground="Gray" IsHitTestVisible="False" 
+                <TextBlock Margin="5" Text="Описание персонажа" Foreground="Gray" IsHitTestVisible="False" 
                        FontSize="32"  Visibility="{Binding ElementName=descTB, Path=Text,
                                                    Converter={StaticResource PlaceholderVisibilityConverter}}" />
             </Grid>

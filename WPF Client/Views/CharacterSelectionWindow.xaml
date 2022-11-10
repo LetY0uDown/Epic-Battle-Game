@@ -26,7 +26,8 @@
         <ListBox Grid.Row="1"
                  ItemsSource="{Binding Characters}"
                  SelectedItem="{Binding SelectedCharacter}"
-                 DisplayMemberPath="Name" FontSize="22" />
+                 DisplayMemberPath="Name" FontSize="22"
+                 FontWeight="DemiBold" />
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
