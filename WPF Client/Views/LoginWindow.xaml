@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:WPF_Client.Core.ViewModels"
-        xmlns:ui="clr-namespace:WPF_Client.UITools"
+        xmlns:lib="clr-namespace:WPF_Client_Library;assembly=WPFClientLibrary"
         mc:Ignorable="d"
         Title="Login" Height="550" Width="350"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
@@ -12,10 +12,6 @@
     <Window.DataContext>
         <viewmodels:LoginViewModel />
     </Window.DataContext>
-
-    <Window.Resources>
-        <ui:PlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
-    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -29,25 +25,16 @@
         </Viewbox>
 
         <StackPanel Grid.Row="1" VerticalAlignment="Center">
-            <Grid Margin="20">
-                <TextBox Padding="3" x:Name="loginTB" VerticalContentAlignment="Center" 
-                         FontSize="26" Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}" MaxLength="15" />
-                <TextBlock Margin="3" Text="Логин" Foreground="Gray" IsHitTestVisible="False"
-                           FontSize="26"
-                           Visibility="{Binding ElementName=loginTB, Path=Text,
-                                                Converter={StaticResource PlaceholderVisibilityConverter}}" />
-            </Grid>
 
-            <Grid Grid.Row="1" Margin="20">
-                <TextBox Padding="3" x:Name="passTB" VerticalContentAlignment="Center"
-                         FontSize="26" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-                <TextBlock Margin="3" Text="Пароль" Foreground="Gray" IsHitTestVisible="False"
-                           FontSize="26"
-                           Visibility="{Binding ElementName=passTB, Path=Text,
-                                                Converter={StaticResource PlaceholderVisibilityConverter}}" />
-            </Grid>
+            <lib:PlaceholderTextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+                                    Placeholder="Логин" FontSize="26" Margin="5"
+                                    Padding="3" VerticalContentAlignment="Center" />
 
-            <CheckBox Content="Уже есть аккаунт" Margin="20 -15"
+            <lib:PlaceholderTextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                                    Placeholder="Пароль" FontSize="26" Margin="5"
+                                    Padding="3" VerticalContentAlignment="Center" />
+            
+            <CheckBox Content="Уже есть аккаунт" Margin="10 0"
                       FontSize="18" VerticalContentAlignment="Center"
                       IsChecked="{Binding HasAccount}"/>
         </StackPanel>

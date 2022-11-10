@@ -16,10 +16,10 @@ internal sealed class CharacterSelectorViewModel : ViewModel
 
         CreateCharacterCommand = new(async o =>
         {
-            var newChar = new Character(App.CurrentUser!.ID);
-
-            newChar.CurrentX = Random.Shared.Next(-1, 2);
-            newChar.CurrentY = Random.Shared.Next(-1, 2);
+            var newChar = new Character(App.CurrentUser!.ID) {
+                CurrentX = Random.Shared.Next(-1, 2),
+                CurrentY = Random.Shared.Next(-1, 2)
+            };
 
             App.CurrentUser!.CurrentCharacter = await APIClient.PostAsync("Characters", newChar);
 

@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj" />
-    <ProjectReference Include="..\WPF Client Library\WPF Client Library.csproj" />
+    <ProjectReference Include="..\WPF Client Library\WPFClientLibrary.csproj" />
   </ItemGroup>
 
 </Project>

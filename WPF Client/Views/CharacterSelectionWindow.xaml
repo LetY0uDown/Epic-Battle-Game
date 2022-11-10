@@ -26,7 +26,7 @@
         <ListBox Grid.Row="1"
                  ItemsSource="{Binding Characters}"
                  SelectedItem="{Binding SelectedCharacter}"
-                 DisplayMemberPath="Name" FontSize="22"
+                 DisplayMemberPath="Name" FontSize="36"
                  FontWeight="DemiBold" />
 
         <Grid Grid.Row="2">
@@ -36,9 +36,14 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
-            <Button Content="Играть" Margin="5" />
-            <Button Content="Редактировать" Grid.Column="1" Margin="5" />
-            <Button Content="Создать" Grid.Column="2" Margin="5" />
+            <Button Content="Играть" Margin="5" 
+                    Command="{Binding PlayCommand}"/>
+            
+            <Button Content="Редактировать" Grid.Column="1" Margin="5"
+                    Command="{Binding EditCharacterCommand}" />
+            
+            <Button Content="Создать" Grid.Column="2" Margin="5"
+                    Command="{Binding CreateCharacterCommand}" />
         </Grid>
 
     </Grid>

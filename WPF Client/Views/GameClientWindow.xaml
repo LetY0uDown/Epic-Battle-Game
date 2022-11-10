@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:WPF_Client.Core.ViewModels"
-        xmlns:ui="clr-namespace:WPF_Client.UITools"
+        xmlns:lib="clr-namespace:WPF_Client_Library;assembly=WPFClientLibrary"
         mc:Ignorable="d"
         Title="Epic Battle Game" Height="650" Width="1080"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
@@ -12,10 +12,6 @@
     <Window.DataContext>
         <viewmodels:GameViewModel />
     </Window.DataContext>
-    
-    <Window.Resources>
-        <ui:PlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
-    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>

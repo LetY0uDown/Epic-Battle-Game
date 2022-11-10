@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPF Client", "WPF Client\WPF Client.csproj", "{58C42EBC-7A71-4F4F-9931-33CC49821BF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WPF Client Library", "WPF Client Library\WPF Client Library.csproj", "{7040E0EF-E4D1-4D45-9716-DD88ABC005B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFClientLibrary", "WPF Client Library\WPFClientLibrary.csproj", "{7040E0EF-E4D1-4D45-9716-DD88ABC005B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

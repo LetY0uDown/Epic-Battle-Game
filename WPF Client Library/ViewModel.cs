@@ -3,7 +3,7 @@
 /// <summary>
 /// Base class for every ViewModel
 /// </summary>
-public abstract class ViewModel
+public abstract class ViewModel : ObservableObject
 {
 
 }

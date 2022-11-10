@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewmodels="clr-namespace:WPF_Client.Core.ViewModels"
+        xmlns:lib="clr-namespace:WPF_Client_Library;assembly=WPFClientLibrary"
         xmlns:ui="clr-namespace:WPF_Client.UITools"
         mc:Ignorable="d"
         Title="Epic Battle Game" Height="650" Width="1080"
@@ -14,70 +15,64 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <ui:PlaceholderVisibilityConverter x:Key="PlaceholderVisibilityConverter" />
+        <ui:HealthConverter x:Key="HealthConverter" />
     </Window.Resources>
-
+    
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width=".45*"/>
+            <ColumnDefinition Width=".5*"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Border BorderBrush="Black" BorderThickness="4"
-                CornerRadius="10" Margin="5">
-            <Viewbox Margin="5">
-                <TextBlock Text="тут могла быть &#x0a; ваша реклама" />
-            </Viewbox>
+        <Border BorderThickness="5" CornerRadius="25"
+                BorderBrush="Black" Margin="5">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <TextBlock Text="Тут" FontSize="32"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Могла" FontSize="32"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Быть" FontSize="32"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Ваша" FontSize="32"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Реклама" FontSize="32"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
         </Border>
 
-        <Grid Grid.Column="1">
+        <Grid Grid.Column="1" Margin="5">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
                 <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <Grid Margin="20">
-                <TextBox Padding="5" x:Name="nameTB" VerticalContentAlignment="Center" 
-                         FontSize="32" Text="{Binding Character.Name, UpdateSourceTrigger=PropertyChanged}" MaxLength="20" />
-                <TextBlock Margin="5" Text="Имя персонажа" Foreground="Gray" IsHitTestVisible="False"
-                           FontSize="32" VerticalAlignment="Center"
-                           Visibility="{Binding ElementName=nameTB, Path=Text,
-                                                Converter={StaticResource PlaceholderVisibilityConverter}}" />
-            </Grid>
-
-            <TextBox Grid.Row="1" IsReadOnly="True" Foreground="Gray"
-                     VerticalContentAlignment="Center" Padding="5" Margin="20"
-                     FontSize="32" Text="{Binding StringFormat=Количество монет - {0}, Path=Character.Money}"/>
-
-            <TextBox Grid.Row="2" IsReadOnly="True" Foreground="Gray"
-                     VerticalContentAlignment="Center" Padding="5" Margin="20"
-                     FontSize="32" Text="{Binding StringFormat=Максимальное количество хп - {0}, Path=Character.MaxHP}"/>
-
-        </Grid>
-
-        <Grid Margin="20" Grid.Row="1" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height=".3*"/>
+                <RowDefinition Height="2*"/>
             </Grid.RowDefinitions>
 
-            <Grid>
-                <TextBox FontSize="32" x:Name="descTB" MaxLength="50"
-                     TextWrapping="Wrap" Padding="5"
-                     Text="{Binding Character.Description, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width=".5*"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock Margin="5" Text="Описание персонажа" Foreground="Gray" IsHitTestVisible="False" 
-                       FontSize="32"  Visibility="{Binding ElementName=descTB, Path=Text,
-                                                   Converter={StaticResource PlaceholderVisibilityConverter}}" />
+                <TextBox IsReadOnly="True" Grid.Column="1"
+                         VerticalAlignment="Center"  FontSize="48"
+                         Text="{Binding Character.CurrentHP, Converter={StaticResource HealthConverter},
+                                        ConverterParameter=10}" />
+
+                <lib:PlaceholderTextBox Placeholder="Имя" Text="{Binding Character.Name, Mode=TwoWay}"
+                                        FontSize="48" MaxLength="25"/>
             </Grid>
 
-            <Button Grid.Row="1" Content="Сохранить" Command="{Binding SaveCommand}"/>
+            <TextBox IsReadOnly="True" Text="{Binding StringFormat=Монет: {0}, Path=Character.Money}" FontSize="48"
+                     Grid.Row="1" VerticalContentAlignment="Center" Margin="10"/>
+
+            <ComboBox Grid.Row="2" Margin="10"/>
+            <ComboBox Grid.Row="3" Margin="10"/>
+
+            <lib:PlaceholderTextBox Text="{Binding Character.Description}"
+                                    Placeholder="Описание" FontSize="48"
+                                    Grid.Row="4" MaxLength="50"/>
         </Grid>
     </Grid>
 </Window>

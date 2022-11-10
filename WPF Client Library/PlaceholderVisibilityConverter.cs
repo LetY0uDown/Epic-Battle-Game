@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace WPF_Client.UITools;
+namespace WPF_Client_Library;
 
 internal sealed class PlaceholderVisibilityConverter : IValueConverter
 {
