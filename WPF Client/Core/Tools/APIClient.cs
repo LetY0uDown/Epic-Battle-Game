@@ -106,7 +106,7 @@ internal static class APIClient
 
     internal static async Task<T> PutAsync<T>(string path, T value) where T : Model
     {
-        var requestString = _host + path + $"/{value.ID}";
+        var requestString = _host + path;
 
         var json = JsonSerializer.Serialize(value, _jsonOptions);
         var content = new StringContent(json, Encoding.UTF8, "application/json");

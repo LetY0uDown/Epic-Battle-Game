@@ -50,7 +50,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<ActionResult> Put (User user)
+    public async Task<ActionResult<User>> Put (User user)
     {
         try {
             _dbContext.Users.Update(user);
@@ -60,7 +60,7 @@ public class UsersController : ControllerBase
             throw;
         }
 
-        return Ok();
+        return user;
     }
 
     [HttpGet]

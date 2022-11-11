@@ -20,20 +20,20 @@ public class GameHub : Hub
         _battleService = battleService;
     }
 
-    public async void MakeAction (Character sender, BattleAction.Type action)
+    public async Task MakeAction (Character sender, BattleAction.Type action)
     {
 
     }
 
-    public async void EnterRoom(Room currentRoom, Character character, int x, int y)
+    public async Task EnterRoom(Room currentRoom, Character character, int x, int y)
     {
-        RemovePlayerFromRoom(character, currentRoom);
+        await RemovePlayerFromRoom(character, currentRoom);
 
         await Clients.OthersInGroup(currentRoom.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} вышел в одну из дверей, и был таков.");
 
         var newRoom = await _roomService.GetRoom(x, y);
 
-        AddPlayerToRoom(character, newRoom);
+        await AddPlayerToRoom(character, newRoom);
 
         var roomDesc = _roomService.ConstructRoomDescription(newRoom, character.Name!);
 
@@ -43,11 +43,11 @@ public class GameHub : Hub
                                                                                $"На нём надет {character.Armor!.Title}, а в руках он держит {character.Weapon!.Title}");
     }
 
-    public async void Spawn (Character character)
+    public async Task Spawn (Character character)
     {
         var room = await _roomService.GetRoom(character.CurrentX, character.CurrentY);
 
-        AddPlayerToRoom(character, room);
+        await AddPlayerToRoom(character, room);
 
         var roomDesc = _roomService.ConstructRoomDescription(room, character.Name!);
 
@@ -63,7 +63,7 @@ public class GameHub : Hub
         await Clients.OthersInGroup(room.ToString()).SendAsync(RECIEVE_MSG, sb.ToString());
     }
 
-    public async void PickUpLoot (Character character, Room room)
+    public async Task PickUpLoot (Character character, Room room)
     {
         var moneyFound = room.PickMoney();
 
@@ -82,14 +82,14 @@ public class GameHub : Hub
         await Clients.Group(room.ToString()).SendAsync(RECIEVE_MSG, $"{character.Name} только что нагнулся, и вытащил из какой-то щели несколько монет");
     }
 
-    private async void RemovePlayerFromRoom (Character character, Room room)
+    private async Task RemovePlayerFromRoom (Character character, Room room)
     {
         _roomService.RemoveCharacterFromRoom(character, room);
 
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, room.ToString());
     }
 
-    private async void AddPlayerToRoom (Character character, Room room)
+    private async Task AddPlayerToRoom (Character character, Room room)
     {
         _roomService.AddCharacterToRoom(character, room);
 

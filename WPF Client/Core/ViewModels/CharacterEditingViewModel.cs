@@ -19,7 +19,7 @@ internal class CharacterEditingViewModel : ViewModel
 
             App.CurrentUser!.CurrentCharacter = await APIClient.PutAsync("Characters", Character);
 
-            App.SwitchMainWindow<CharacterSelectionWindow>();
+            App.SwitchMainWindow(new CharacterSelectionWindow());
         },
         b => CanSave());
     }

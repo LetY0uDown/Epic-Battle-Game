@@ -20,7 +20,7 @@ internal sealed class LoginViewModel : ViewModel
             if (returnedUser is not null)
             {
                 App.CurrentUser = returnedUser;
-                App.SwitchMainWindow<CharacterSelectionWindow>();
+                App.SwitchMainWindow(new CharacterSelectionWindow());
             }
 
         }, b => !string.IsNullOrWhiteSpace(Login)

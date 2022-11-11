@@ -27,7 +27,7 @@
         <!-- Actions List -->
         <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden"
                       Margin="10 10 0 10">
-            <ItemsControl />
+            <ItemsControl ItemsSource="{Binding Actions}" HorizontalContentAlignment="Stretch" />
         </ScrollViewer>
         
         <!-- Character Info -->

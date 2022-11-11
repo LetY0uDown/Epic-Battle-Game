@@ -17,7 +17,7 @@ internal sealed class GameViewModel : ViewModel
     {
         CurrentCharacter = App.CurrentUser!.CurrentCharacter!;
 
-        // SetupHub();
+        SetupHub();
     }
 
     public Visibility BattleControlsVisibility { get; private set; } = Visibility.Collapsed;
