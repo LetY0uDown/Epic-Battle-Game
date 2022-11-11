@@ -26,13 +26,13 @@
 
         <StackPanel Grid.Row="1" VerticalAlignment="Center">
 
-            <lib:PlaceholderTextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
-                                    Placeholder="Логин" FontSize="26" Margin="5"
-                                    Padding="3" VerticalContentAlignment="Center" />
+            <TextBox Text="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
+                                    FontSize="26" Margin="5"
+                                    Padding="3"/>
 
-            <lib:PlaceholderTextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
-                                    Placeholder="Пароль" FontSize="26" Margin="5"
-                                    Padding="3" VerticalContentAlignment="Center" />
+            <TextBox Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                                    FontSize="26" Margin="5"
+                                    Padding="3"/>
             
             <CheckBox Content="Уже есть аккаунт" Margin="10 0"
                       FontSize="18" VerticalContentAlignment="Center"

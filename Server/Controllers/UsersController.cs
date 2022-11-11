@@ -15,7 +15,7 @@ public class UsersController : ControllerBase
         _dbContext = dbContext;
     }
 
-    [HttpPost("/Registration")]
+    [HttpPost("Registration")]
     public async Task<ActionResult<User>> Register ([FromBody] User user)
     {
         if (UsernameExist(user.Username)) {
@@ -33,10 +33,10 @@ public class UsersController : ControllerBase
         return user;
     }
 
-    [HttpPost("/Login")]
+    [HttpPost("Login")]
     public async Task<ActionResult<User>> Login ([FromBody] User user)
     {
-        var findedUser = await _dbContext.Users.Include("Character").FirstOrDefaultAsync(u => u.Username == user.Username);
+        var findedUser = await _dbContext.Users.Include("CurrentCharacter").FirstOrDefaultAsync(u => u.Username == user.Username);
 
         if (findedUser is null) {
             return BadRequest("Пользователя с таким именем не существует");
@@ -61,6 +61,14 @@ public class UsersController : ControllerBase
         }
 
         return Ok();
+    }
+
+    [HttpGet]
+    public async Task<IEnumerable<User>> Users()
+    {
+        return _dbContext.Users.Include(u => u.CurrentCharacter)
+                               .Include(u => u.CurrentCharacter!.Weapon)
+                               .Include(u => u.CurrentCharacter!.Armor);
     }
 
     private bool UsernameExist(string username)

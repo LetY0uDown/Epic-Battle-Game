@@ -17,12 +17,13 @@ internal sealed class LoginViewModel : ViewModel
 
             var returnedUser = await APIClient.PostAsync(requestString, user);
 
-            if (returnedUser is not null) {
+            if (returnedUser is not null)
+            {
                 App.CurrentUser = returnedUser;
                 App.SwitchMainWindow<CharacterSelectionWindow>();
             }
 
-        }, b => !string.IsNullOrWhiteSpace(Login) 
+        }, b => !string.IsNullOrWhiteSpace(Login)
                 && !string.IsNullOrWhiteSpace(Password));
     }
 

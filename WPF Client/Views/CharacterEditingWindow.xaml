@@ -55,24 +55,26 @@
                     <ColumnDefinition Width=".5*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBox IsReadOnly="True" Grid.Column="1"
-                         VerticalAlignment="Center"  FontSize="48"
+                <TextBox IsReadOnly="True" Grid.Column="1" FontSize="48"
                          Text="{Binding Character.CurrentHP, Converter={StaticResource HealthConverter},
                                         ConverterParameter=10}" />
 
-                <lib:PlaceholderTextBox Placeholder="Имя" Text="{Binding Character.Name, Mode=TwoWay}"
-                                        FontSize="48" MaxLength="25"/>
+                <lib:PlaceholderTextBox Placeholder="Имя персонажа" Text="{Binding Character.Name}"
+                                        FontSize="48" MaxLength="20"/>
             </Grid>
 
             <TextBox IsReadOnly="True" Text="{Binding StringFormat=Монет: {0}, Path=Character.Money}" FontSize="48"
-                     Grid.Row="1" VerticalContentAlignment="Center" Margin="10"/>
+                     Grid.Row="1" Margin="10"/>
 
-            <ComboBox Grid.Row="2" Margin="10"/>
-            <ComboBox Grid.Row="3" Margin="10"/>
+            <ComboBox Grid.Row="2" Margin="10" SelectedItem="{Binding SelecetedArmor}"
+                      ItemsSource="{Binding Armor}" Text="Броня"/>
+            
+            <ComboBox Grid.Row="3" Margin="10" SelectedItem="{Binding SelectedWeapon}"
+                      ItemsSource="{Binding Weapons}" Text="Оружие"/>
 
             <lib:PlaceholderTextBox Text="{Binding Character.Description}"
                                     Placeholder="Описание" FontSize="48"
-                                    Grid.Row="4" MaxLength="50"/>
+                                    Grid.Row="4" MaxLength="50" />
         </Grid>
     </Grid>
 </Window>

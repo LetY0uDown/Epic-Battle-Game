@@ -1,4 +1,5 @@
 ﻿using Models.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
@@ -12,23 +13,24 @@ internal static class APIClient
 {
     private static readonly string _host = Config.GetValue("host");
 
-    private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions
-    {
-        PropertyNameCaseInsensitive = true
+    private static readonly JsonSerializerOptions _jsonOptions = new JsonSerializerOptions {
+        PropertyNameCaseInsensitive = true,
+        DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.Never
     };
 
-    internal static async Task<IEnumerable<T>> GetCollectionAsync<T>(string path) where T : Model
+    internal static async Task<IEnumerable<T>> GetCollectionAsync<T>(string path, object? by = null) where T : Model
     {
         var requestPath = _host + path;
 
-        HttpResponseMessage response;
+        if (by is not null) requestPath += by;
 
-        using (HttpClient client = new())
-        {
-            response = await client.GetAsync(requestPath);
-        }
+        HttpClient client = new();
+
+        var response = await client.GetAsync(requestPath);
 
         var content = await response.Content.ReadAsStringAsync();
+
+        client.Dispose();
 
         if (!response.IsSuccessStatusCode)
         {

@@ -16,7 +16,7 @@ public partial class PlaceholderTextBox : UserControl
 
         TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(PlaceholderTextBox),
                                                    new PropertyMetadata(string.Empty));
-
+        
         MaxLengthProperty = DependencyProperty.Register(nameof(MaxLength), typeof(int), typeof(PlaceholderTextBox),
                                                         new PropertyMetadata(int.MaxValue));
     }
@@ -24,8 +24,6 @@ public partial class PlaceholderTextBox : UserControl
     public PlaceholderTextBox ()
     {
         InitializeComponent();
-
-        DataContext = this;
     }
 
     public static readonly DependencyProperty TextProperty;
@@ -44,7 +42,7 @@ public partial class PlaceholderTextBox : UserControl
 
     public string Text
     {
-        get => GetValue(TextProperty).ToString()!;
+        get => (string)GetValue(TextProperty);
         set => SetValue(TextProperty, value);
     }
 

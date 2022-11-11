@@ -29,6 +29,10 @@ public class Character : Model
 
     public int CurrentHP { get; set; } = DEFAULT_MAX_HP;
 
+    public int WeaponID { get; set; }
+
+    public int ArmorID { get; set; }
+
     public Weapon? Weapon { get; set; }
 
     public Armor? Armor { get; set; }

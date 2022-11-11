@@ -13,13 +13,15 @@
     </UserControl.Resources>
 
     <Grid>
-        <TextBox x:Name="mainTextBox" Text="{Binding Text}"
-                 MaxLength="{Binding MaxLength}" VerticalAlignment="Center"/>
+        <TextBox x:Name="mainTextBox" Text="{Binding Text,
+                                             RelativeSource={RelativeSource AncestorType=UserControl}}"
+                 MaxLength="{Binding MaxLength, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                 TextWrapping="Wrap" VerticalContentAlignment="Center"/>
 
-        <TextBlock Text="{Binding Placeholder}" VerticalAlignment="Center"
+        <TextBlock Text="{Binding Placeholder, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    FontSize="{Binding ElementName=mainTextBox, Path=FontSize}"
                    FontWeight="{Binding ElementName=mainTextBox, Path=FontWeight}"
-                   IsHitTestVisible="False" Foreground="{Binding PlaceholderForeground}"
+                   IsHitTestVisible="False" Foreground="{Binding PlaceholderForeground, RelativeSource={RelativeSource AncestorType=UserControl}}"
                    Visibility="{Binding ElementName=mainTextBox,
                                         Converter={StaticResource PlaceholderVisibility},
                                         Path=Text}"/>
